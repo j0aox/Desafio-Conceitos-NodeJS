@@ -65,7 +65,7 @@ app.post('/todos', checksExistsUserAccount, (request, response) => {
 
   user.todos.push(todo)
 
-  return response.json(todo)
+  return response.status(201).json(todo)
 });
 
 app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
@@ -134,11 +134,11 @@ app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
     return response.status(404).json({ error: "Todo not found!" })
   }
 
-  const todoDelete = user.todos.filter((todo) => todo.id !== todoID)
+  const todoDelete = user.todos.filter((todo) => todo.id !== todoID.id)
 
   user.todos = todoDelete
 
-  return response.status(204)
+  return response.status(204).send()
 });
 
 module.exports = app;
